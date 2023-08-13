@@ -1,4 +1,16 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using CrudNet7MVC.Data;
+using Microsoft.EntityFrameworkCore;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Configure SQL DB connection
+builder.Services.AddDbContext<ApplicationDbContext>(
+    options =>
+    {
+        var connetionString = builder.Configuration.GetConnectionString("ConnectionSQL");
+        options.UseMySql(connetionString, ServerVersion.AutoDetect(connetionString));
+
+    });
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
