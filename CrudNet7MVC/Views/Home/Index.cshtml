@@ -1,9 +1,66 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<CrudNet7MVC.Models.User>
+@{
+    ViewData["Title"] = "Contact List";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h1 class="text-center">
+    Contact List .Net 7 (ASP .Net Core MVC)
+</h1>
+
+<div class="row">
+    <div class="offset-9 col-3 mb-3">
+        <a asp-action="Create" asp-controller="Home" class="btn btn-secondary d-block mx-auto btn.lg">
+            Create new user
+        </a>
+    </div>
 </div>
 
+<div class="row">
+    <div class="offset-12">
+        <div class="card border">
+            <div class="card-header bg-dark">
+                <h3 class="text-white"><strong>Contact List</strong></h3>
+            </div>
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    @if (Model.Count() > 0)
+                    {
+                        <table class="table table-bordered" id="tblUsers" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>@Html.DisplayNameFor(m => m.Id)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Name)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Phone)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Email)</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (var user in Model)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(m => user.Id)</td>
+                                        <td>@Html.DisplayFor(m => user.Name)</td>
+                                        <td>@Html.DisplayFor(m => user.Phone)</td>
+                                        <td>@Html.DisplayFor(m => user.Email)</td>
+                                        <td>
+                                            <a class="btn btn-warning" asp-action="Edit" asp-controller="Home" asp-route-id="@user.Id">Edit</a>
+                                            <a class="btn btn-secondary" asp-action="Details" asp-controller="Home" asp-route-id="@user.Id">Details</a>
+                                            <a class="btn btn-danger" asp-action="Delete" asp-controller="Home" asp-route-id="@user.Id">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p>There are no users registered</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
