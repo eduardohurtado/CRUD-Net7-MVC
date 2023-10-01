@@ -1,0 +1,48 @@
+﻿@model CrudNet7MVC.Models.User
+@{
+    ViewData["Title"] = "Create New Contact";
+}
+
+<h1 class="text-center">
+    Contact List .Net 7 (ASP .Net Core MVC)
+</h1>
+
+<div class="row">
+    <div class="offset-12">
+        <div class="card border">
+            <div class="card-header bg-dark">
+                <h3 class="text-white"><strong>Create new contact</strong></h3>
+            </div>
+
+            <div class="card-body">
+                <form asp-action="Create" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" placeholder="Please type the name" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Phone" class="control-label"></label>
+                        <input asp-for="Phone" class="form-control" placeholder="Please type the phone" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" placeholder="Please type the email" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <button type="submit" class="btn btn-secundary d-block mx-auto"><i class="bi bi-person-fill"></i> Create new contact</button>
+                    </div>
+                </form>
+
+                <a asp-controller="Home" asp-action="Index">Back</a>
+            </div>
+        </div>
+    </div>
+</div>
