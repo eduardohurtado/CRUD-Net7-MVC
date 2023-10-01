@@ -21,6 +21,24 @@ public class HomeController : Controller
         return View(await _context.Users.ToListAsync());
     }
 
+    [HttpGet]
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create(User user)
+    {
+        if (ModelState.IsValid)
+        {
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        return View();
+    }
+
     public IActionResult Privacy()
     {
         return View();
