@@ -6,12 +6,16 @@ namespace CrudNet7MVC.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required]
+
+        [Required (ErrorMessage = "Name is required")]
         public required string Name { get; set; }
-        [Required]
+
+        [Required (ErrorMessage = "Phone is required")]
         public required string Phone { get; set; }
-        [Required]
+
+        [Required (ErrorMessage = "Email is required")]
         public required string Email { get; set; }
+
         public DateTime CreationTime { get; set; }
     }
 }
