@@ -28,6 +28,7 @@ public class HomeController : Controller
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(User user)
     {
         if (ModelState.IsValid)
@@ -37,6 +38,87 @@ public class HomeController : Controller
             return RedirectToAction(nameof(Index));
         }
         return View();
+    }
+
+    [HttpGet]
+    public IActionResult Edit(int? id)
+    {
+        if (id == null) {
+            return NotFound();
+        }
+
+        var contact = _context.Users.Find(id);
+
+        if (contact == null)
+        {
+            return NotFound();
+        }
+
+        return View(contact);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(User user)
+    {
+        if (ModelState.IsValid)
+        {
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        return View();
+    }
+
+    [HttpGet]
+    public IActionResult Details(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var contact = _context.Users.Find(id);
+
+        if (contact == null)
+        {
+            return NotFound();
+        }
+
+        return View(contact);
+    }
+
+    [HttpGet]
+    public IActionResult Delete(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var contact = _context.Users.Find(id);
+
+        if (contact == null)
+        {
+            return NotFound();
+        }
+
+        return View(contact);
+    }
+
+    [HttpPost, ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteContact(int? id)
+    {
+        var contact = await _context.Users.FindAsync(id);
+        if(contact == null)
+        {
+            return View();
+        }
+
+        _context.Users.Remove(contact);
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Index));
     }
 
     public IActionResult Privacy()
